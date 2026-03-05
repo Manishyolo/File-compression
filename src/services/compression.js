@@ -2,10 +2,13 @@ const {spawn} = require("child_process");
 const ffmpeg = require("ffmpeg-static")
 
 
+
+function filecompression(inputPath,outputPath){
+
 const process = spawn(ffmpeg,[
     "-i",
-    "input.mp4",
-    "output.mp4"
+    inputPath,
+    outputPath
 ])
 
 process.stderr.on("data",data=>{
@@ -14,5 +17,11 @@ process.stderr.on("data",data=>{
 })
 process.on("close",()=>{
     console.log("video finished");
+    return true
     
 })
+
+}
+
+
+module.exports = filecompression
