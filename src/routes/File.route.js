@@ -1,12 +1,11 @@
-const express = require("express");
-const FileRouter = express.Router();
-
+import {Router} from "express";
+const FileRouter = Router();
 
 // controllers
-const { FileCompressController} = require('../controllers/File.controller');
+import {FileCompressController} from "../controllers/File.controller.js";
 
 // middlewares
-const upload = require("../middleware/FileUpload.middleware");
+import {upload} from "../middleware/FileUpload.middleware.js";
 
 
 
@@ -14,4 +13,4 @@ const upload = require("../middleware/FileUpload.middleware");
 FileRouter.post("/compress",upload.single("file"),FileCompressController)
 
 
-module.exports = FileRouter;
+export default FileRouter;

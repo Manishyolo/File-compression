@@ -1,6 +1,5 @@
-const app = require("./src/app");
-const connectTodatbase = require('./src/config/Datebase');
-
+import app from "./src/app.js";
+import connectTodatbase from "./src/config/Datebase.js";
 
 connectTodatbase();
 

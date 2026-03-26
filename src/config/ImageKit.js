@@ -1,15 +1,11 @@
-const Imagekit = require("@imagekit/nodejs");
-const {toFile} = require('@imagekit/nodejs')
-const dotenv = require('dotenv')
+import ImageKit from '@imagekit/nodejs';
+import dotenv from "dotenv";
+dotenv.config();  
 
-dotenv.config();
-
-
-const imagekit = new Imagekit({
+export const imageKit = new ImageKit({
       publicKey:process.env.IMAGEKIT_PUBLICKEY,
      privateKey:process.env.IMAGEKIT_PASSWORD,
      urlEndpoint:process.env.IMAGEKIT_URL_ENDPOINT
 
 })
 
-module.exports = {imagekit,toFile};

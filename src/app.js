@@ -1,13 +1,14 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const filecompression = require("./services/compression");
-const FileRouter = require("./routes/File.route");
+
+import FileRouter from "./routes/File.route.js";
 app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 
 // Routes
 
-app.use("/file",FileRouter)
+app.use("/api/file",FileRouter)
 
 
-module.exports = app
+export default app;

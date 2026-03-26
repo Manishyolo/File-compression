@@ -1,5 +1,5 @@
-const { spawn } = require("child_process");
-const ffmpeg = require("ffmpeg-static");
+import { spawn } from "child_process";
+import ffmpeg from "ffmpeg-static";
 
 function filecompression({ inputPath, outputPath }) {
   
@@ -20,4 +20,4 @@ function filecompression({ inputPath, outputPath }) {
  })
 }
 
-module.exports = filecompression;
+export default filecompression;

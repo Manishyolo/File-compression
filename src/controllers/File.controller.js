@@ -1,7 +1,8 @@
-const filecompression = require('../services/compression');
-const FileUpload = require("../services/fileupload");
+import filecompression from "../services/compression.js";
+import FileUpload from "../services/fileupload.js";
 
-async function FileCompressController(req,res){
+// Controller to handle file compression and upload
+export async function FileCompressController(req,res){
     console.log(req.file);
     const file = req.file;
     const inputPath = req.file.path;
@@ -28,6 +29,3 @@ async function FileCompressController(req,res){
 }
 
 
-module.exports = {
-    FileCompressController
-}

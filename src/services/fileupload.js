@@ -1,10 +1,11 @@
-const { imagekit, toFile } = require("../config/ImageKit");
-const fs = require("fs");
+import fs from "fs";
+import {imageKit} from "../config/ImageKit.js";
+import { toFile } from "@imagekit/nodejs";
 
 async function FileUpload(filepath, filename) {
   const fileBuffer = fs.readFileSync(filepath);
 
-  const result = await imagekit.files.upload({
+  const result = await imageKit.files.upload({
     file: await toFile(Buffer.from(fileBuffer), "file"),
     fileName: filename,
     folder: "Compressed_files",
@@ -13,4 +14,4 @@ async function FileUpload(filepath, filename) {
   return result;
 }
 
-module.exports = FileUpload;
+export default FileUpload;
