@@ -1,15 +1,18 @@
 import { spawn } from "child_process";
 import ffmpeg from "ffmpeg-static";
 
-function filecompression({ inputPath, outputPath }) {
+
+//  function to compress media files using ffmpeg
+export function Mediacompression({ inputPath, outputPath }) {
   
  return new Promise((resolve, reject) => {
-      const process = spawn(ffmpeg, ["-i", inputPath, outputPath]);
+      const ffmpegProcess = spawn(ffmpeg, ["-i", inputPath, outputPath]);
 
-    process.stderr.on("data", (data) => {
+    ffmpegProcess.stderr.on("data", (data) => {
       console.log(data.toString());
     });
-    process.on("close", (code) => {
+
+    ffmpegProcess.on("close", (code) => {
       if (code === 0) {
         console.log("Compression finished");
         resolve(outputPath);
@@ -20,4 +23,4 @@ function filecompression({ inputPath, outputPath }) {
  })
 }
 
-export default filecompression;
+
