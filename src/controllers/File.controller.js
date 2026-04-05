@@ -6,7 +6,7 @@ import fileModel from "../models/File.model.js";
 export async function FileCompressController(req, res) {
   console.log(req.file);
   const file = req.file;
-  res.setHeader("Content-Type", "video/mp4");
+
   const inputPath = req.file.path;
   const outputPath = `src/uploads/compressed/${req.file.filename}`;
 
