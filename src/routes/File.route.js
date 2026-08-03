@@ -10,7 +10,7 @@ import {upload} from "../middleware/FileUpload.middleware.js";
 
 
 
-FileRouter.post("/compress",upload.single("file"),FileCompressController)
+FileRouter.post("/compress",FileCompressController)
 
 
 export default FileRouter;

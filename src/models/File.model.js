@@ -17,6 +17,8 @@ const fileSchema = new mongoose.Schema({
     },
     fileType:{
         type:String,
+        enum:["image","video"],
+        default:"image",
         require:true
     }
 })
