@@ -5,6 +5,7 @@ import {
 import FileUpload from "../services/fileupload.js";
 import fileModel from "../models/File.model.js";
 import Busboy from "busboy";
+import path from "path"
 
 // Controller to handle file compression and upload
 export async function FileCompressController(req, res) {
@@ -14,11 +15,16 @@ export async function FileCompressController(req, res) {
     });
 
     busboy.on("file", (fieldname, file, info) => {
-      if (info.mimeType.split("/")[0] === "image") {
+    
+         const extension = path.extname(info.filename).toLowerCase();
+       
+
+
+      if ([".jpg", ".jpeg", ".png", ".webp"].includes(extension)) {
         const { outputstream, finished } = ImageCompression(file);
         console.log("image detected",outputstream);
       }
-      if (info.mimeType.split("/")[0] === "video") {
+      if ([".mp4", ".mov", ".mkv", ".avi", ".webm"].includes(extension)) {
         const { outputstream, finished } = VideoCompression(file);
         console.log("video detected",outputstream);
       }
