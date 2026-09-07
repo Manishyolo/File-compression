@@ -15,73 +15,65 @@ export async function FileCompressController(req, res) {
       headers: req.headers,
     });
 
-    busboy.on("file", busboyCallback);
-
-    async function busboyCallback(fieldname, file, info) {
+    busboy.on("file", async function (fieldname, file, info) {
       const extension = path.extname(info.filename).toLowerCase();
 
       if ([".jpg", ".jpeg", ".png", ".webp"].includes(extension)) {
         console.log("image detected");
         const { outputstream, finished } = ImageCompression(file);
 
-        const result = await FileUpload(
+        const uploadedfile = await FileUpload(
           outputstream,
           `compressed_${info.filename}`,
         );
 
-        console.log(result)
+        console.log(uploadedfile);
 
-        // const writeStream = fs.createWriteStream(
-        //   `./compressed${path.extname(info.filename)}`,
-        // );
+        const { url, fileType, name, thumbnailUrl } = uploadedfile;
 
-        // outputstream.pipe(writeStream);
+        const fileData = await fileModel.create({
+          filename: name,
+          fileurl: url,
+          fileType: fileType,
+          thumbnailurl: thumbnailUrl,
+        });
 
-        // writeStream.on("finish", () => {
-        //   console.log("compressed file created");
-        // });
         await finished;
 
         console.log("this finished variable", finished);
+
+        return res
+          .status(200)
+          .json({ message: "file uploaded", file: fileData });
       }
       if ([".mp4", ".mov", ".mkv", ".avi", ".webm"].includes(extension)) {
         const { outputstream, finished } = VideoCompression(file);
 
-        const result = await FileUpload(
+        const uploadedfile = await FileUpload(
           outputstream,
           `compressed_${info.filename}`,
         );
-        
-         console.log(result)
-        // const writeStream = fs.createWriteStream(
-        //   `./compressed${path.extname(info.filename)}`,
-        // );
-        // outputstream.pipe(writeStream);
 
-        // writeStream.on("finish", () => {
-        //   console.log("compressed file created");
-        // });
+        console.log(uploadedfile);
+        const { url, fileType, name, thumbnailUrl } = uploadedfile;
+
+        const fileData = await fileModel.create({
+          filename: name,
+          fileurl: url,
+          fileType: fileType,
+          thumbnailurl: thumbnailUrl,
+        });
         await finished;
 
         console.log(finished);
 
-        console.log("video detected", outputstream);
+        return res
+          .status(200)
+          .json({ message: "file uploaded", file: fileData });
       }
-    }
+    });
 
     req.pipe(busboy);
-
-    // const uploadedfile = await FileUpload(compressedFile, file.filename);
-    // const { url, fileType, name, thumbnailUrl } = uploadedfile;
-
-    // const fileData = await fileModel.create({
-    //   filename: name,
-    //   fileurl: url,
-    //   fileType: fileType,
-    //   thumbnailurl: thumbnailUrl,
-    // });
-
-    // return res.status(200).json({ message: "file uploaded", file: fileData });
   } catch (error) {
     console.log(error);
     res.status(400).json({

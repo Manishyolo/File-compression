@@ -8,7 +8,7 @@ const fileSchema = new mongoose.Schema({
     },
      thumbnailurl:{
         type:String,
-        require:true
+        required:false
      }
     ,
     fileurl:{
@@ -17,7 +17,7 @@ const fileSchema = new mongoose.Schema({
     },
     fileType:{
         type:String,
-        enum:["image","video"],
+        enum:["image","non-image"],
         default:"image",
         require:true
     }
