@@ -3,11 +3,12 @@ import connectTodatbase from "./src/config/Datebase.js";
 
 connectTodatbase();
 
-app.listen(3000,()=>{
+const server = app.listen(3000,()=>{
     console.log("server running on port 3000");
     
 })
 
 
 
-
+server.timeout = 0;
+server.requestTimeout = 0;
