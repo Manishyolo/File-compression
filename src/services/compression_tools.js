@@ -86,6 +86,9 @@ export function VideoCompression(file) {
 
     "-b:a",
     "128k",
+    
+     "-vf",
+  "scale=1280:720",
 
     "-f",
     "mp4",
