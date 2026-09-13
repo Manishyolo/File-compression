@@ -10,19 +10,33 @@ import fs from "fs";
 
 // Controller to handle file compression and upload
 export async function FileCompressController(req, res) {
+  
   try {
+    let userValues = {
+    }
+   
     const busboy = Busboy({
       headers: req.headers,
     });
+           
+   busboy.on("field",(fieldname,value)=>{
+
+      if(fieldname === "resolution"){
+         userValues.resolution = value
+             console.log(fieldname,value);
+      }
+ 
+   })
 
     busboy.on("file", async function (fieldname, file, info) {
       const extension = path.extname(info.filename).toLowerCase();
 
       if ([".jpg", ".jpeg", ".png", ".webp"].includes(extension)) {
         console.log("image detected");
-        const { outputstream, finished } = ImageCompression(file);
+        const { outputstream, finished } = ImageCompression(file,userValues);
 
         const uploadedfile = await FileUpload(
+
           outputstream,
           `compressed_${info.filename}`,
         );
@@ -47,7 +61,7 @@ export async function FileCompressController(req, res) {
           .json({ message: "file uploaded", file: fileData });
       }
       if ([".mp4", ".mov", ".mkv", ".avi", ".webm"].includes(extension)) {
-        const { outputstream, finished } = VideoCompression(file);
+        const { outputstream, finished } = VideoCompression(file,userValues);
 
         const uploadedfile = await FileUpload(
           outputstream,

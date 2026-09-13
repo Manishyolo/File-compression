@@ -2,10 +2,18 @@ import { spawn } from "child_process";
 import ffmpeg from "ffmpeg-static";
 
 //  function to compress media files using ffmpeg
-export function ImageCompression(file) {
+export function ImageCompression(file,userValues) {
+  const { resolution } = userValues;
+
+  const [width, height] = resolution.split(" x ");
+
   const ffmpegProcess = spawn(ffmpeg, [
     "-i",
     "pipe:0",
+
+    "-vf",
+    `scale=${width}:${height}`,
+
     "-f",
     "image2",
     "pipe:1",
@@ -37,16 +45,11 @@ export function ImageCompression(file) {
       if (code === 0) {
         console.log("Compression finished");
 
-        console.log(
-          `Original: ${(inputSize / 1024 / 1024).toFixed(2)} MB`
-        );
+        console.log(`Original: ${(inputSize / 1024 / 1024).toFixed(2)} MB`);
 
-        console.log(
-          `Compressed: ${(outputSize / 1024 / 1024).toFixed(2)} MB`
-        );
+        console.log(`Compressed: ${(outputSize / 1024 / 1024).toFixed(2)} MB`);
 
-        const reduction =
-          ((inputSize - outputSize) / inputSize) * 100;
+        const reduction = ((inputSize - outputSize) / inputSize) * 100;
 
         console.log(`Size reduced: ${reduction.toFixed(2)}%`);
 
@@ -67,7 +70,11 @@ export function ImageCompression(file) {
   };
 }
 
-export function VideoCompression(file) {
+export function VideoCompression(file, userValues) {
+  const { resolution } = userValues;
+
+  const [width, height] = resolution.split(" x ");
+
   const ffmpegProcess = spawn(ffmpeg, [
     "-i",
     "pipe:0",
@@ -86,9 +93,9 @@ export function VideoCompression(file) {
 
     "-b:a",
     "128k",
-    
-     "-vf",
-  "scale=1280:720",
+
+    "-vf",
+    `scale=${width}:${height}`,
 
     "-f",
     "mp4",
@@ -117,7 +124,7 @@ export function VideoCompression(file) {
   const outputstream = ffmpegProcess.stdout;
 
   const finished = new Promise((resolve, reject) => {
-      ffmpegProcess.stderr.on("data", (data) => {
+    ffmpegProcess.stderr.on("data", (data) => {
       console.log(data.toString());
     });
 
@@ -125,16 +132,11 @@ export function VideoCompression(file) {
       if (code === 0) {
         console.log("Compression finished");
 
-        console.log(
-          `Original: ${(inputSize / 1024 / 1024).toFixed(2)} MB`
-        );
+        console.log(`Original: ${(inputSize / 1024 / 1024).toFixed(2)} MB`);
 
-        console.log(
-          `Compressed: ${(outputSize / 1024 / 1024).toFixed(2)} MB`
-        );
+        console.log(`Compressed: ${(outputSize / 1024 / 1024).toFixed(2)} MB`);
 
-        const reduction =
-          ((inputSize - outputSize) / inputSize) * 100;
+        const reduction = ((inputSize - outputSize) / inputSize) * 100;
 
         console.log(`Size reduced: ${reduction.toFixed(2)}%`);
 
