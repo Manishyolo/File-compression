@@ -1,18 +1,20 @@
 import { spawn } from "child_process";
 import ffmpeg from "ffmpeg-static";
+import { parseResolution } from "../utility/resolution.js";
+
 
 //  function to compress media files using ffmpeg
 export function ImageCompression(file,userValues) {
   const { resolution } = userValues;
 
-  const [width, height] = resolution.split(" x ");
+  const [width, height] = parseResolution(resolution);
 
   const ffmpegProcess = spawn(ffmpeg, [
     "-i",
     "pipe:0",
 
     "-vf",
-    `scale=${width}:${height}`,
+    `scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease,pad=w=${width}:h=${height}:x=(ow-iw)/2:y=(oh-ih)/2`,
 
     "-f",
     "image2",
@@ -73,7 +75,7 @@ export function ImageCompression(file,userValues) {
 export function VideoCompression(file, userValues) {
   const { resolution } = userValues;
 
-  const [width, height] = resolution.split(" x ");
+  const [width, height] = parseResolution(resolution);
 
   const ffmpegProcess = spawn(ffmpeg, [
     "-i",
@@ -95,7 +97,7 @@ export function VideoCompression(file, userValues) {
     "128k",
 
     "-vf",
-    `scale=${width}:${height}`,
+    `scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease,pad=w=${width}:h=${height}:x=(ow-iw)/2:y=(oh-ih)/2`,
 
     "-f",
     "mp4",
