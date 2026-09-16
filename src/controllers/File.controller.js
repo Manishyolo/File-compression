@@ -1,10 +1,8 @@
-import {
-  ImageCompression,
-  VideoCompression,
-} from "../services/compression_tools.js";
 import { getFileType } from "../utility/fileTypes.js";
-import FileUpload from "../services/fileupload.js";
+import FileUpload from "../storage/fileupload.js";
 import fileModel from "../models/File.model.js";
+import { ImageCompression } from "../services/ffmpeg/image.js";
+import { VideoCompression } from "../services/ffmpeg/video.js";
 import Busboy from "busboy";
 import path from "path";
 import fs from "fs";
@@ -32,6 +30,7 @@ export async function FileCompressController(req, res) {
 
       if (fileType === "image") {
         console.log("image detected");
+        console.log(info)
         const { outputstream, finished } = ImageCompression(file, userValues);
 
         const uploadedfile = await FileUpload(
@@ -61,7 +60,7 @@ export async function FileCompressController(req, res) {
 
       if (fileType === "video") {
         const { outputstream, finished } = VideoCompression(file, userValues);
-
+ console.log("this is video info",info)
         const uploadedfile = await FileUpload(
           outputstream,
           `compressed_${info.filename}`,
