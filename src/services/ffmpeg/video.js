@@ -4,19 +4,20 @@ import { parseResolution } from "../../utility/resolution.js";
 
 export function VideoCompression(file, userValues) {
   const { resolution } = userValues;
- console.log("this is a file info ", file)
-  const { width, height } = parseResolution(resolution);
+  console.log("this is a file info ", file);
+  // const { width, height } = parseResolution(resolution);
 
   const ffmpegProcess = spawn(ffmpeg, [
+    // stream input pipeline
     "-i",
     "pipe:0",
-
+    // encoder
     "-c:v",
     "libx264",
-
+    // Bitrate
     "-crf",
     "28",
-
+    // Speed of compression
     "-preset",
     "fast",
 
@@ -26,15 +27,12 @@ export function VideoCompression(file, userValues) {
     "-b:a",
     "128k",
 
-    "-vf",
-    `scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease,pad=w=${width}:h=${height}:x=(ow-iw)/2:y=(oh-ih)/2`,
-
     "-f",
     "mp4",
 
     "-movflags",
     "frag_keyframe+empty_moov",
-
+     // Stream Output pipeline
     "pipe:1",
   ]);
 

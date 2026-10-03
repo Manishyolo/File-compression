@@ -6,19 +6,17 @@ import { parseResolution } from "../../utility/resolution.js";
 export function ImageCompression(file, userValues) {
   const { resolution } = userValues;
 
-  consol
-
-  const { width, height } = parseResolution(resolution);
+  // const { width, height } = parseResolution(resolution);
 
   const ffmpegProcess = spawn(ffmpeg, [
+    // Stream input pipeline
     "-i",
     "pipe:0",
-
-    "-vf",
-    `scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease,pad=w=${width}:h=${height}:x=(ow-iw)/2:y=(oh-ih)/2`,
-
+    // Format
     "-f",
     "image2",
+
+    // Stream output pipeline
     "pipe:1",
   ]);
 
