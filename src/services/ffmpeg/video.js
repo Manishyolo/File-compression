@@ -1,40 +1,20 @@
 import { spawn } from "child_process";
 import ffmpeg from "ffmpeg-static";
+import { presets } from "./presets.js";
 import { parseResolution } from "../../utility/resolution.js";
 
 export function VideoCompression(file, userValues) {
-  const { resolution } = userValues;
+  const { CompressionLevel } = userValues;
   console.log("this is a file info ", file);
   // const { width, height } = parseResolution(resolution);
-
-  const ffmpegProcess = spawn(ffmpeg, [
-    // stream input pipeline
-    "-i",
-    "pipe:0",
-    // encoder
-    "-c:v",
-    "libx264",
-    // Bitrate
-    "-crf",
-    "28",
-    // Speed of compression
-    "-preset",
-    "fast",
-
-    "-c:a",
-    "aac",
-
-    "-b:a",
-    "128k",
-
-    "-f",
-    "mp4",
-
-    "-movflags",
-    "frag_keyframe+empty_moov",
-     // Stream Output pipeline
-    "pipe:1",
-  ]);
+  console.log(
+    "video presete ========/////********",
+    presets.VideoPrebuildPresets[CompressionLevel].argus,
+  );
+  const ffmpegProcess = spawn(
+    ffmpeg,
+    presets.VideoPrebuildPresets[CompressionLevel].argus,
+  );
 
   let inputSize = 0;
   let outputSize = 0;

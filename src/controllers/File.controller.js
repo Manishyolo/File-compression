@@ -17,8 +17,8 @@ export async function FileCompressController(req, res) {
     });
 
     busboy.on("field", (fieldname, value) => {
-      if (fieldname === "resolution") {
-        userValues.resolution = value;
+      if (fieldname === "CompressionLevel") {
+        userValues.CompressionLevel = value;
         console.log(fieldname, value);
       }
     });
