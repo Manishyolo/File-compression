@@ -30,7 +30,7 @@ export async function FileCompressController(req, res) {
 
       if (fileType === "image") {
         console.log("image detected");
-        console.log(info)
+        console.log(info);
         const { outputstream, finished } = ImageCompression(file, userValues);
 
         const uploadedfile = await FileUpload(
@@ -42,9 +42,14 @@ export async function FileCompressController(req, res) {
 
         const { url, fileType, name, thumbnailUrl } = uploadedfile;
 
+        const newUrl = url.replace(
+          "ik.imagekit.io/fmywdhh68/",
+          "ik.imagekit.io/fmywdhh68/tr:orig-true/",
+        );
+
         const fileData = await fileModel.create({
           filename: name,
-          fileurl: url,
+          fileurl: newUrl,
           fileType: fileType,
           thumbnailurl: thumbnailUrl,
         });
@@ -60,7 +65,7 @@ export async function FileCompressController(req, res) {
 
       if (fileType === "video") {
         const { outputstream, finished } = VideoCompression(file, userValues);
- console.log("this is video info",info)
+        console.log("this is video info", info);
         const uploadedfile = await FileUpload(
           outputstream,
           `compressed_${info.filename}`,
@@ -68,10 +73,15 @@ export async function FileCompressController(req, res) {
 
         console.log(uploadedfile);
         const { url, fileType, name, thumbnailUrl } = uploadedfile;
+       
+        const newUrl = url.replace(
+          "ik.imagekit.io/fmywdhh68/",
+          "ik.imagekit.io/fmywdhh68/tr:orig-true/",
+        );
 
         const fileData = await fileModel.create({
           filename: name,
-          fileurl: url,
+          fileurl: newUrl,
           fileType: fileType,
           thumbnailurl: thumbnailUrl,
         });

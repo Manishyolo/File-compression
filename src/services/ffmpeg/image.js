@@ -1,10 +1,11 @@
 import { spawn } from "child_process";
 import ffmpeg from "ffmpeg-static";
+import { presets } from "./presets.js";
 import { parseResolution } from "../../utility/resolution.js";
 
 //  function to compress media files using ffmpeg
 export function ImageCompression(file, userValues) {
-  const { resolution } = userValues;
+  const { CompressionLevel } = userValues;
 
   // const { width, height } = parseResolution(resolution);
 

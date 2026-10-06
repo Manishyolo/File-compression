@@ -27,10 +27,7 @@ export const presets = {
         "128k",
 
         "-f",
-        "mp4",
-
-        "-movflags",
-        "frag_keyframe+empty_moov",
+        "image2",
 
         // Stream output
         "pipe:1",
@@ -63,10 +60,7 @@ export const presets = {
         "128k",
 
         "-f",
-        "mp4",
-
-        "-movflags",
-        "frag_keyframe+empty_moov",
+        "image2",
 
         // Stream output
         "pipe:1",
@@ -99,10 +93,7 @@ export const presets = {
         "128k",
 
         "-f",
-        "mp4",
-
-        "-movflags",
-        "frag_keyframe+empty_moov",
+        "image2",
 
         // Stream output
         "pipe:1",
@@ -135,10 +126,7 @@ export const presets = {
         "128k",
 
         "-f",
-        "mp4",
-
-        "-movflags",
-        "frag_keyframe+empty_moov",
+        "image2",
 
         // Stream output
         "pipe:1",
@@ -171,10 +159,7 @@ export const presets = {
         "128k",
 
         "-f",
-        "mp4",
-
-        "-movflags",
-        "frag_keyframe+empty_moov",
+        "image2",
 
         // Stream output
         "pipe:1",
@@ -207,10 +192,7 @@ export const presets = {
         "128k",
 
         "-f",
-        "mp4",
-
-        "-movflags",
-        "frag_keyframe+empty_moov",
+        "image2",
 
         // Stream output
         "pipe:1",
