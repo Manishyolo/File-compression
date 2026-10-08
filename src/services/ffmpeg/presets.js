@@ -417,7 +417,40 @@ export const presets = {
       ],
     },
   },
-  CustomPresets: {
+  CustomImagePresets: {
+    argus: [
+      // Stream input
+      "-i",
+      "pipe:0",
+
+      // Encoder
+      "-c:v",
+      "libx264",
+
+      // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
+      "-crf",
+      "23",
+
+      // Encoding Speed
+      "-preset",
+      "medium",
+
+      // Audio Encoder
+      "-c:a",
+      "aac",
+
+      // Audio Bitrate controller
+      "-b:a",
+      "128k",
+
+       "-f",
+      "image2",
+
+      // Stream output
+      "pipe:1",
+    ],
+  },
+   CustomVideoPresets: {
     argus: [
       // Stream input
       "-i",
