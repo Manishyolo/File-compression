@@ -4,22 +4,35 @@ import { presets } from "./presets.js";
 import { parseResolution } from "../../utility/resolution.js";
 
 //  function to compress media files using ffmpeg
-export function ImageCompression(file, userValues) {
-  const { CompressionLevel } = userValues;
+export function ImageCompression(
+  file,
+  { userValues, CustomUserValues, request },
+) {
+  let ffmpegProcess;
 
-  // const { width, height } = parseResolution(resolution);
+  if (request === "custom") {
+    const { Encoder, Bitrate } = CustomUserValues;
+    ffmpegProcess = spawn(ffmpeg, [
+      "-i",
+      "pipe:0",
+      "-c:v",
+      `${Encoder}`,
+      "-crf",
+      `${Bitrate}`,
+      "-preset",
+      "medium",
+      "-f",
+      "image2",
+      "pipe:1",
+    ]);
+  } else {
+    const { CompressionLevel } = userValues;
 
-  const ffmpegProcess = spawn(ffmpeg, [
-    // Stream input pipeline
-    "-i",
-    "pipe:0",
-    // Format
-    "-f",
-    "image2",
-
-    // Stream output pipeline
-    "pipe:1",
-  ]);
+    ffmpegProcess = spawn(
+      ffmpeg,
+      presets.ImagePrebuildPresets[CompressionLevel].argus,
+    );
+  }
 
   let inputSize = 0;
   let outputSize = 0;

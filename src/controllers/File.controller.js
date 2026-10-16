@@ -31,7 +31,7 @@ export async function FileCompressController(req, res) {
       if (fileType === "image") {
         console.log("image detected");
         console.log(info);
-        const { outputstream, finished } = ImageCompression(file, userValues);
+        const { outputstream, finished } = ImageCompression(file, {userValues});
 
         const uploadedfile = await FileUpload(
           outputstream,
@@ -95,6 +95,108 @@ export async function FileCompressController(req, res) {
       }
     });
 
+    req.pipe(busboy);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: error,
+    });
+  }
+}
+export async function CustomFileCompressController(req, res) {
+  try {
+    const request = req.url.split('/')[2];
+    console.log(request);
+
+    let CustomUserValues = {};
+
+    const busboy = Busboy({
+      headers: req.headers,
+    });
+
+    busboy.on("field", (fieldname, value) => {
+          if(fieldname === "Encoder" ){
+              CustomUserValues.Encoder = value
+          }
+          if(fieldname === "Bitrate"){
+            CustomUserValues.Bitrate = value
+          }
+           console.log(CustomUserValues);
+    });
+
+busboy.on("file", async function (fieldname, file, info) {
+      const extension = path.extname(info.filename).toLowerCase();
+
+      const fileType = getFileType(extension);
+
+      if (fileType === "image") {
+        console.log("image detected");
+        console.log(info);
+        const { outputstream, finished } = ImageCompression(file,{CustomUserValues,request});
+
+        const uploadedfile = await FileUpload(
+          outputstream,
+          `compressed_${info.filename}`,
+        );
+
+        console.log(uploadedfile);
+
+        const { url, fileType, name, thumbnailUrl } = uploadedfile;
+
+        const newUrl = url.replace(
+          "ik.imagekit.io/fmywdhh68/",
+          "ik.imagekit.io/fmywdhh68/tr:orig-true/",
+        );
+
+        const fileData = await fileModel.create({
+          filename: name,
+          fileurl: newUrl,
+          fileType: fileType,
+          thumbnailurl: thumbnailUrl,
+        });
+
+        await finished;
+
+        console.log("this finished variable", finished);
+
+        return res
+          .status(200)
+          .json({ message: "file uploaded", file: fileData });
+      }
+
+      if (fileType === "video") {
+        const { outputstream, finished } = VideoCompression(file, userValues);
+        console.log("this is video info", info);
+        const uploadedfile = await FileUpload(
+          outputstream,
+          `compressed_${info.filename}`,
+        );
+
+        console.log(uploadedfile);
+        const { url, fileType, name, thumbnailUrl } = uploadedfile;
+       
+        const newUrl = url.replace(
+          "ik.imagekit.io/fmywdhh68/",
+          "ik.imagekit.io/fmywdhh68/tr:orig-true/",
+        );
+
+        const fileData = await fileModel.create({
+          filename: name,
+          fileurl: newUrl,
+          fileType: fileType,
+          thumbnailurl: thumbnailUrl,
+        });
+        await finished;
+
+        console.log(finished);
+
+        return res
+          .status(200)
+          .json({ message: "file uploaded", file: fileData });
+      }
+    });
+
+    
     req.pipe(busboy);
   } catch (error) {
     console.log(error);

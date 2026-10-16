@@ -3,12 +3,12 @@ import ffmpeg from "ffmpeg-static";
 import { presets } from "./presets.js";
 import { parseResolution } from "../../utility/resolution.js";
 
-export function VideoCompression(file, userValues) {
+export function VideoCompression(file, userValues,request) {
   const { CompressionLevel } = userValues;
   console.log("this is a file info ", file);
   // const { width, height } = parseResolution(resolution);
   console.log(
-    "video presete ========/////********",
+    "video preset ========/////********",
     presets.VideoPrebuildPresets[CompressionLevel].argus,
   );
   const ffmpegProcess = spawn(
