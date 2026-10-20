@@ -64,7 +64,7 @@ export async function FileCompressController(req, res) {
       }
 
       if (fileType === "video") {
-        const { outputstream, finished } = VideoCompression(file, userValues);
+        const { outputstream, finished } = VideoCompression(file, {userValues});
         console.log("this is video info", info);
         const uploadedfile = await FileUpload(
           outputstream,
@@ -165,7 +165,7 @@ busboy.on("file", async function (fieldname, file, info) {
       }
 
       if (fileType === "video") {
-        const { outputstream, finished } = VideoCompression(file, userValues);
+        const { outputstream, finished } = VideoCompression(file,{CustomUserValues,request});
         console.log("this is video info", info);
         const uploadedfile = await FileUpload(
           outputstream,

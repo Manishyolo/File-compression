@@ -3,18 +3,40 @@ import ffmpeg from "ffmpeg-static";
 import { presets } from "./presets.js";
 import { parseResolution } from "../../utility/resolution.js";
 
-export function VideoCompression(file, userValues,request) {
-  const { CompressionLevel } = userValues;
-  console.log("this is a file info ", file);
-  // const { width, height } = parseResolution(resolution);
-  console.log(
-    "video preset ========/////********",
-    presets.VideoPrebuildPresets[CompressionLevel].argus,
-  );
-  const ffmpegProcess = spawn(
-    ffmpeg,
-    presets.VideoPrebuildPresets[CompressionLevel].argus,
-  );
+export function VideoCompression(
+  file,
+  { userValues, CustomUserValues, request },
+) {
+  let ffmpegProcess;
+
+  if (request === "custom") {
+    const { Encoder, Bitrate } = CustomUserValues;
+    ffmpegProcess = spawn(ffmpeg, [
+      "-i",
+      "pipe:0",
+      "-c:v",
+      `${Encoder}`,
+      "-crf",
+      `${Bitrate}`,
+      "-preset",
+      "medium",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "128k",
+      "-f",
+      "mp4",
+      "-movflags",
+      "frag_keyframe+empty_moov",
+      "pipe:1",
+    ]);
+  } else {
+    const { CompressionLevel } = userValues;
+    ffmpegProcess = spawn(
+      ffmpeg,
+      presets.VideoPrebuildPresets[CompressionLevel].argus,
+    );
+  }
 
   let inputSize = 0;
   let outputSize = 0;
