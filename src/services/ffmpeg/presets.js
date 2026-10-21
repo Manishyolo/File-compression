@@ -8,7 +8,7 @@ export const presets = {
 
         // Encoder
         "-c:v",
-        "libx264",
+        "mjpeg",
 
         // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
         "-crf",
@@ -17,14 +17,6 @@ export const presets = {
         // Encoding Speed
         "-preset",
         "slow",
-
-        // Audio Encoder
-        "-c:a",
-        "aac",
-
-        // Audio Bitrate controller
-        "-b:a",
-        "128k",
 
         "-f",
         "image2",
@@ -41,7 +33,7 @@ export const presets = {
 
         // Encoder
         "-c:v",
-        "libx264",
+       "mjpeg",
 
         // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
         "-crf",
@@ -50,14 +42,6 @@ export const presets = {
         // Encoding Speed
         "-preset",
         "medium",
-
-        // Audio Encoder
-        "-c:a",
-        "aac",
-
-        // Audio Bitrate controller
-        "-b:a",
-        "128k",
 
         "-f",
         "image2",
@@ -74,7 +58,7 @@ export const presets = {
 
         // Encoder
         "-c:v",
-        "libx264",
+        "mjpeg",
 
         // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
         "-crf",
@@ -83,14 +67,6 @@ export const presets = {
         // Encoding Speed
         "-preset",
         "fast",
-
-        // Audio Encoder
-        "-c:a",
-        "aac",
-
-        // Audio Bitrate controller
-        "-b:a",
-        "128k",
 
         "-f",
         "image2",
@@ -107,7 +83,7 @@ export const presets = {
 
         // Encoder
         "-c:v",
-        "libx264",
+       "mjpeg",
 
         // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
         "-crf",
@@ -116,14 +92,6 @@ export const presets = {
         // Encoding Speed
         "-preset",
         "faster",
-
-        // Audio Encoder
-        "-c:a",
-        "aac",
-
-        // Audio Bitrate controller
-        "-b:a",
-        "128k",
 
         "-f",
         "image2",
@@ -140,7 +108,7 @@ export const presets = {
 
         // Encoder
         "-c:v",
-        "libx264",
+        "mjpeg",
 
         // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
         "-crf",
@@ -149,14 +117,6 @@ export const presets = {
         // Encoding Speed
         "-preset",
         "faster",
-
-        // Audio Encoder
-        "-c:a",
-        "aac",
-
-        // Audio Bitrate controller
-        "-b:a",
-        "128k",
 
         "-f",
         "image2",
@@ -173,7 +133,7 @@ export const presets = {
 
         // Encoder
         "-c:v",
-        "libx264",
+        "mjpeg",
 
         // Quality Control with libx264 the range is 0-51 lower value = high quality higher value = lower quality
         "-crf",
@@ -182,14 +142,6 @@ export const presets = {
         // Encoding Speed
         "-preset",
         "ultrafast",
-
-        // Audio Encoder
-        "-c:a",
-        "aac",
-
-        // Audio Bitrate controller
-        "-b:a",
-        "128k",
 
         "-f",
         "image2",
@@ -417,4 +369,4 @@ export const presets = {
       ],
     },
   },
- }
+};
