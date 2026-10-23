@@ -26,9 +26,9 @@ export async function FileCompressController(req, res) {
     busboy.on("file", async function (fieldname, file, info) {
       const extension = path.extname(info.filename).toLowerCase();
 
-      const fileType = getFileType(extension);
+      const {type,format} = getFileType(extension);
 
-      if (fileType === "image") {
+      if (type === "image") {
         console.log("image detected");
         console.log(info);
         const { outputstream, finished } = ImageCompression(file, {userValues});
@@ -63,7 +63,7 @@ export async function FileCompressController(req, res) {
           .json({ message: "file uploaded", file: fileData });
       }
 
-      if (fileType === "video") {
+      if (type === "video") {
         const { outputstream, finished } = VideoCompression(file, {userValues});
         console.log("this is video info", info);
         const uploadedfile = await FileUpload(
@@ -127,9 +127,9 @@ export async function CustomFileCompressController(req, res) {
 busboy.on("file", async function (fieldname, file, info) {
       const extension = path.extname(info.filename).toLowerCase();
 
-      const fileType = getFileType(extension);
+      const {type,format} = getFileType(extension);
 
-      if (fileType === "image") {
+      if (type === "image") {
         console.log("image detected");
         console.log(info);
         const { outputstream, finished } = ImageCompression(file,{CustomUserValues,request});
@@ -164,7 +164,7 @@ busboy.on("file", async function (fieldname, file, info) {
           .json({ message: "file uploaded", file: fileData });
       }
 
-      if (fileType === "video") {
+      if (type === "video") {
         const { outputstream, finished } = VideoCompression(file,{CustomUserValues,request});
         console.log("this is video info", info);
         const uploadedfile = await FileUpload(
