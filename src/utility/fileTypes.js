@@ -1,5 +1,5 @@
 const fileTypes = {
-    image:[".jpg", ".jpeg", ".png", ".webp",".avif","jfif"],
+    image:[".jpg", ".jpeg", ".png", ".webp",".avif",".jfif",".gif"],
     video:[".mp4", ".mov", ".mkv", ".avi", ".webm"]
 }
 
