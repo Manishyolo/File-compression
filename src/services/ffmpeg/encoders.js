@@ -26,6 +26,47 @@ export let ImageEncoders = [
   "xbm",       // XBM encoder — simple monochrome bitmap format
   "xface",     // X-Face encoder — tiny monochrome images, mainly historical/email use
 ];
+
+ export const imageEncoderMap = {
+        png: "png",
+        jpg: "mjpeg",
+        jpeg: "mjpeg",
+
+        webp: "libwebp",
+
+        jpeg2000: "jpeg2000",
+        jp2: "jpeg2000",
+
+        jpegls: "jpegls",
+        jxl: "jpegxl",
+        jpegxl: "jpegxl",
+        jxs: "jpegxs",
+        jpegxs: "jpegxs",
+
+        gif: "gif",
+        bmp: "bmp",
+        tiff: "tiff",
+        tif: "tiff",
+
+        pam: "pam",
+        pbm: "pbm",
+        pgm: "pgm",
+        ppm: "ppm",
+        pfm: "pfm",
+
+        qoi: "qoi",
+        sgi: "sgi",
+        rgb: "sgi",
+        sunrast: "sunrast",
+        ras: "sunrast",
+        tga: "targa",
+        targa: "targa",
+        xbm: "xbm",
+        xface: "xface",
+    };
+
+
+
 export let VideoEncoders = [
   "libx264",        // H.264/AVC encoder — excellent compatibility, good compression
   "libx265",        // H.265/HEVC encoder — better compression than H.264, but slower
@@ -57,3 +98,51 @@ export let VideoEncoders = [
   "theora",          // Theora encoder — open-source video codec
   "utvideo",         // Ut Video — lossless video codec
 ];
+
+
+
+export const videoEncoderMap = {
+
+        // H.264
+        mp4: "libx264",
+        m4v: "libx264",
+        mov: "libx264",
+        mkv: "libx264",
+
+        // H.265 / HEVC
+        hevc: "libx265",
+
+        // WebM
+        webm: "libvpx-vp9",
+
+        // AV1
+        av1: "libsvtav1",
+
+        // MPEG
+        mpeg: "mpeg2video",
+        mpg: "mpeg2video",
+        m2v: "mpeg2video",
+
+        // MPEG-1
+        m1v: "mpeg1video",
+
+        // H.263
+        h263: "h263",
+
+        // Lossless
+        ffv1: "ffv1",
+        huffyuv: "huffyuv",
+        ffvhuff: "ffvhuff",
+
+        // Professional codecs
+        prores: "prores",
+        dnxhd: "dnxhd",
+        dnxhr: "dnxhr",
+
+        // Theora
+        ogv: "theora",
+        theora: "theora",
+
+        // Ut Video
+        utvideo: "utvideo",
+    };

@@ -3,6 +3,7 @@ import ffmpeg from "ffmpeg-static";
 import { presets } from "./presets.js";
 import {ImageEncoders} from "./encoders.js"
 import { parseResolution } from "../../utility/resolution.js";
+import { encoderSelection } from "../../utility/encoderSelection.js";
 
 //  function to compress media files using ffmpeg
 export function ImageCompression(
@@ -28,7 +29,10 @@ export function ImageCompression(
     ]);
   } else {
     const { CompressionLevel } = userValues;
-    // presets.ImagePrebuildPresets[CompressionLevel].argus[3] = 
+   
+    const {type,encoder} = encoderSelection(format)
+
+    presets.ImagePrebuildPresets[CompressionLevel].argus[3] = encoder;
     console.log( presets.ImagePrebuildPresets[CompressionLevel].argus[3])
     ffmpegProcess = spawn(
       ffmpeg,

@@ -31,7 +31,7 @@ export async function FileCompressController(req, res) {
       if (type === "image") {
         console.log("image detected");
         console.log(info);
-        const { outputstream, finished } = ImageCompression(file, {userValues});
+        const { outputstream, finished } = ImageCompression(file, {userValues,format});
 
         const uploadedfile = await FileUpload(
           outputstream,
@@ -64,7 +64,7 @@ export async function FileCompressController(req, res) {
       }
 
       if (type === "video") {
-        const { outputstream, finished } = VideoCompression(file, {userValues});
+        const { outputstream, finished } = VideoCompression(file, {userValues,format});
         console.log("this is video info", info);
         const uploadedfile = await FileUpload(
           outputstream,

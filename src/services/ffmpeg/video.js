@@ -1,11 +1,12 @@
 import { spawn } from "child_process";
 import ffmpeg from "ffmpeg-static";
 import { presets } from "./presets.js";
+import { encoderSelection } from "../../utility/encoderSelection.js";
 import { parseResolution } from "../../utility/resolution.js";
 
 export function VideoCompression(
   file,
-  { userValues, CustomUserValues, request },
+  { userValues, CustomUserValues, request,format },
 ) {
   let ffmpegProcess;
 
@@ -32,6 +33,9 @@ export function VideoCompression(
     ]);
   } else {
     const { CompressionLevel } = userValues;
+    const {type,encoder} = encoderSelection(format)
+    
+        presets.VideoPrebuildPresets[CompressionLevel].argus[3] = encoder;
     ffmpegProcess = spawn(
       ffmpeg,
       presets.VideoPrebuildPresets[CompressionLevel].argus,

@@ -14,9 +14,9 @@ export const presets = {
         "-crf",
         "18",
 
-        // Encoding Speed
-        "-preset",
-        "slow",
+        // // Encoding Speed
+        // "-preset",
+        // "slow",
 
         "-f",
         "image2",
@@ -39,9 +39,9 @@ export const presets = {
         "-crf",
         "23",
 
-        // Encoding Speed
-        "-preset",
-        "medium",
+        // // Encoding Speed
+        // "-preset",
+        // "medium",
 
         "-f",
         "image2",
@@ -64,9 +64,9 @@ export const presets = {
         "-crf",
         "28",
 
-        // Encoding Speed
-        "-preset",
-        "fast",
+        // // Encoding Speed
+        // "-preset",
+        // "fast",
 
         "-f",
         "image2",
@@ -89,9 +89,9 @@ export const presets = {
         "-crf",
         "32",
 
-        // Encoding Speed
-        "-preset",
-        "faster",
+        // // Encoding Speed
+        // "-preset",
+        // "faster",
 
         "-f",
         "image2",
@@ -114,9 +114,9 @@ export const presets = {
         "-crf",
         "36",
 
-        // Encoding Speed
-        "-preset",
-        "faster",
+        // // Encoding Speed
+        // "-preset",
+        // "faster",
 
         "-f",
         "image2",
@@ -139,9 +139,9 @@ export const presets = {
         "-crf",
         "38",
 
-        // Encoding Speed
-        "-preset",
-        "ultrafast",
+        // // Encoding Speed
+        // "-preset",
+        // "ultrafast",
 
         "-f",
         "image2",
